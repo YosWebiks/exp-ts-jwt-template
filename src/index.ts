@@ -1,6 +1,6 @@
 import 'dotenv/config'
 import apiRouter from './routes/api'
-
+const expressJSDocSwagger = require('express-jsdoc-swagger');
 
 import express, {
     Express,
@@ -10,6 +10,7 @@ import express, {
 } from 'express'
 
 import { connectDB } from './config/db'
+import { swaggerOptions } from './config/swagger';
 
 // Constants
 const PORT = process.env.PORT || 3000
@@ -32,7 +33,7 @@ app.get('/', (req: Request, res: Response) => {
 app.use('/api/v1/', apiRouter)
 
 
-/* Error handler middleware */
+// Error handler middleware 
 app.use(((err, req, res, next) => {
     const statusCode = err.statusCode || 500
     console.error(err.message, err.stack)
@@ -40,6 +41,9 @@ app.use(((err, req, res, next) => {
 
     return
 }) as ErrorRequestHandler)
+
+// set swagger
+expressJSDocSwagger(app)(swaggerOptions);
 
 app.listen(PORT, () => {
     console.log(`⚡️[server]: Server is running at https://localhost:${PORT}`)
