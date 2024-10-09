@@ -1,4 +1,6 @@
 import 'dotenv/config'
+import apiRouter from './routes/api'
+
 
 import express, {
     Express,
@@ -26,6 +28,8 @@ app.use(express.static('public'))
 app.get('/', (req: Request, res: Response) => {
     res.status(200).send({ message: 'Welcome to My Express App API.' })
 })
+
+app.use('/api/v1/', apiRouter)
 
 
 /* Error handler middleware */

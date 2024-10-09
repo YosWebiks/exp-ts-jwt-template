@@ -1,5 +1,5 @@
 import { connect } from 'mongoose'
-export const connectDB = async ():Promise<void> => {
+export const connectDB = async (): Promise<void> => {
     try {
         await connect(process.env.DATABASE_URL!)
         console.log('Successfully connected to the database')
